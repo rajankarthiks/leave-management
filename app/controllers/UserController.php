@@ -87,6 +87,10 @@ class UserController extends BaseController {
 
     public function dashboard()
     {
+        $user = Auth::user();
+
+        $user->assignRole(1);
+
         return View::make('users.dashboard');
     }
 
