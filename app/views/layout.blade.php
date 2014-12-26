@@ -53,7 +53,7 @@ BEGIN PAGE
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#fakelink">Leave Management Application</a>
+                <a class="navbar-brand" href="/">Leave Management Application</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -65,7 +65,7 @@ BEGIN PAGE
                 <ul class="nav navbar-nav navbar-right">
 
                     <li class="dropdown">
-                        <a href="#fakelink" class="dropdown-toggle" data-toggle="dropdown"> {{ Auth::user()->email }} <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"> {{ Auth::user()->email }} <b class="caret"></b></a>
                         <ul class="dropdown-menu primary square margin-list-rounded with-triangle">
                             <li>{{ link_to_route('dashboard','Dashboard') }}</li>
                             <li class="divider"></li>
