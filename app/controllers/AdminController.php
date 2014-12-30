@@ -1,8 +1,17 @@
 <?php
 
+use Acme\Leaves\LeaveRepository;
+
 class AdminController extends \BaseController {
 
-	/**
+    protected $leaveRepo;
+
+    function __construct(LeaveRepository $leaveRepo)
+    {
+        $this->leaveRepo = $leaveRepo;
+    }
+
+    /**
 	 * Display a listing of the resource.
 	 * GET /admin
 	 *
@@ -10,7 +19,10 @@ class AdminController extends \BaseController {
 	 */
 	public function index()
 	{
-		return View::make('Admins.index');
+        $leaves = $this->leaveRepo->getAll();
+
+		return View::make('Admins.index')
+                     ->with('leaves',$leaves);
 	}
 
 	/**

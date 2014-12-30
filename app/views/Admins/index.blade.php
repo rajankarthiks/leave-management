@@ -15,22 +15,26 @@
                 <th>Employee Name</th>
                 <th>Date of Leave</th>
                 <th>Reason for Leave</th>
+                <th>Status</th>
                 <th>Total Leaves Taken</th>
                 <th>Action</th>
             </tr>
             </thead>
             <tbody>
+            @foreach($leaves as $leave)
             <tr>
-                <td> ID </td>
-                <td> ID </td>
-                <td> ID </td>
-                <td> ID </td>
-                <td class="center"> ID </td>
+                <td> {{ $leave->id }} </td>
+                <td> {{ $leave->user->username }} </td>
+                <td> {{ $leave->leave_date }} </td>
+                <td> {{ $leave->reason }} </td>
+                <td> {{ $leave->status }} </td>
+                <td class="center"> {{ $leave->user->leaves }} </td>
                 <td class="center">
-                    {{ link_to_route('home','Approve',null,array('class'=>'btn btn-xs btn-success')) }} |
-                    {{ link_to_route('home','Reject',null,array('class'=>'btn btn-xs btn-danger')) }}
+                    {{ link_to_route('approve_leave','Approve',$leave->id,array('class'=>'btn btn-xs btn-success')) }} |
+                    {{ link_to_route('reject_leave','Reject',$leave->id,array('class'=>'btn btn-xs btn-danger')) }}
                 </td>
             </tr>
+            @endforeach
             </tbody>
         </table>
     </div><!-- /.table-responsive -->

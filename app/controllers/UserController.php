@@ -3,6 +3,7 @@
 use Acme\Forms\RegistrationForm;
 use Acme\Forms\SignInForm;
 use Acme\Registration\RegisterUserCommand;
+use Acme\Leaves\LeaveRepository;
 
 class UserController extends BaseController {
 
@@ -14,11 +15,16 @@ class UserController extends BaseController {
      * @var Acme\Forms\SignInForm
      */
     private $signInForm;
+    /**
+     * @var Acme\Leaves\LeaveRepository
+     */
+    private $leaveRepo;
 
-    function __construct(RegistrationForm $registrationForm, SignInForm $signInForm)
+    function __construct(RegistrationForm $registrationForm, SignInForm $signInForm, LeaveRepository $leaveRepo)
     {
         $this->registrationForm = $registrationForm;
         $this->signInForm = $signInForm;
+        $this->leaveRepo = $leaveRepo;
     }
 
     public function home()
@@ -87,7 +93,10 @@ class UserController extends BaseController {
 
     public function dashboard()
     {
-        return View::make('users.dashboard');
+        $leaves = $this->leaveRepo->getAllLeavesByUserId( Auth::user()->id );
+
+        return View::make('users.dashboard')
+                    ->with('leaves',$leaves);
     }
 
 }

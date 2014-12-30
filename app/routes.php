@@ -29,6 +29,25 @@ Route::any('dashboard', [
     'uses' => 'UserController@dashboard'
 ]);
 
+Route::post('leave/apply', [
+    'before' => 'auth',
+    'as' => 'apply_leave',
+    'uses' => 'LeavesController@apply'
+]);
+
+Route::get('leave/{id}/approve', [
+    'before' => 'role:administrator',
+    'as' => 'approve_leave',
+    'uses' => 'LeavesController@approve_leave'
+]);
+
+Route::get('leave/{id}/reject', [
+    'before' => 'role:administrator',
+    'as' => 'reject_leave',
+    'uses' => 'LeavesController@reject_leave'
+]);
+
+
 Route::any('admin', [
     'before' => 'role:administrator',
     'as' => 'admin.index',
