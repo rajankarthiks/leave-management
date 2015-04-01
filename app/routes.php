@@ -35,6 +35,12 @@ Route::post('leave/apply', [
     'uses' => 'LeavesController@apply'
 ]);
 
+Route::get('assign/admin', [
+    'before' => 'auth',
+    'as' => 'assign_admin',
+    'uses' => 'UserController@assignRole'
+]);
+
 Route::get('leave/{id}/approve', [
     'before' => 'role:administrator',
     'as' => 'approve_leave',
@@ -48,8 +54,38 @@ Route::get('leave/{id}/reject', [
 ]);
 
 
-Route::any('admin', [
+Route::get('admin', [
     'before' => 'role:administrator',
     'as' => 'admin.index',
     'uses' => 'AdminController@index'
+]);
+
+Route::get('admin/create', [
+    'before' => 'role:administrator',
+    'as' => 'create_user_page',
+    'uses' => 'AdminController@createUserPage'
+]);
+
+Route::post('admin', [
+    'before' => 'role:administrator',
+    'as' => 'create_user',
+    'uses' => 'AdminController@createUser'
+]);
+
+Route::get('admin/{id}/edit', [
+    'before' => 'role:administrator',
+    'as' => 'edit_user_page',
+    'uses' => 'AdminController@editUserPage'
+]);
+
+Route::put('admin/{id}', [
+    'before' => 'role:administrator',
+    'as' => 'edit_user',
+    'uses' => 'AdminController@editUser'
+]);
+
+Route::get('admin/{id}/delete', [
+    'before' => 'role:administrator',
+    'as' => 'delete_user',
+    'uses' => 'AdminController@deleteUser'
 ]);

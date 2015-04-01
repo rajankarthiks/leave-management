@@ -2,7 +2,7 @@
 
 @section('content')
 
-<h1 class="text-info text-center">Leave Applications</h1>
+<h1 class="text-success text-center">Test Application</h1>
 
 <!-- BEGIN DATA TABLE -->
 <div style="margin-top: 25px;" class="the-box">
@@ -12,26 +12,26 @@
             <thead class="the-box dark full">
             <tr>
                 <th>Id</th>
-                <th>Employee Name</th>
-                <th>Date of Leave</th>
-                <th>Reason for Leave</th>
+                <th>Name</th>
+                <th>Email</th>
                 <th>Status</th>
-                <th>Total Leaves Taken</th>
+                <th>Created At</th>
+                <th>Updated At</th>
                 <th>Action</th>
             </tr>
             </thead>
             <tbody>
-            @foreach($leaves as $leave)
+            @foreach($users as $user)
             <tr>
-                <td> {{ $leave->id }} </td>
-                <td> {{ $leave->user->username }} </td>
-                <td> {{ $leave->leave_date }} </td>
-                <td> {{ $leave->reason }} </td>
-                <td> {{ $leave->status }} </td>
-                <td class="center"> {{ $leave->user->leaves }} </td>
+                <td> {{ $user->id }} </td>
+                <td> {{ $user->username }} </td>
+                <td> {{ $user->email }} </td>
+                <td  class="center"> {{ $user->status }} </td>
+                <td> {{ $user->created_at }} </td>
+                <td> {{ $user->updated_at }} </td>
                 <td class="center">
-                    {{ link_to_route('approve_leave','Approve',$leave->id,array('class'=>'btn btn-xs btn-success')) }} |
-                    {{ link_to_route('reject_leave','Reject',$leave->id,array('class'=>'btn btn-xs btn-danger')) }}
+                    {{ link_to_route('edit_user_page','Edit',$user->id,array('class'=>'btn btn-xs btn-success')) }} |
+                    {{ link_to_route('delete_user','Delete',$user->id,array('class'=>'btn btn-xs btn-danger')) }}
                 </td>
             </tr>
             @endforeach

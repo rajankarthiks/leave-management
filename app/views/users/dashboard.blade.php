@@ -1,9 +1,10 @@
 @extends('layout')
 
 @section('content')
-<h1 class="text-center text-info">Dashboard <small class="text-info">({{ Auth::user()->username }})</small></h1>
-
-<div class="panel with-nav-tabs panel-info">
+<h1 class="text-center text-success">Dashboard <small class="text-info">({{ Auth::user()->username }})</small></h1>
+@stop
+@section('old')
+<div class="panel with-nav-tabs panel-success">
     <div class="panel-heading">
         <ul class="nav nav-tabs nav-justified">
             <li class="active">

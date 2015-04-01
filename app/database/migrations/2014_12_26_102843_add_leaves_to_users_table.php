@@ -15,6 +15,8 @@ class AddLeavesToUsersTable extends Migration {
 		Schema::table('users', function(Blueprint $table)
 		{
 			$table->integer('leaves');
+			$table->boolean('status');
+
 		});
 	}
 
@@ -29,6 +31,8 @@ class AddLeavesToUsersTable extends Migration {
 		Schema::table('users', function(Blueprint $table)
 		{
 			$table->dropColumn('leaves');
+			$table->dropColumn('status');
+
 		});
 	}
 

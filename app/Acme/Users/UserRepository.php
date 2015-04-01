@@ -15,4 +15,9 @@ class UserRepository {
         $user->save();
     }
 
+    public function getAll()
+    {
+        return User::all();
+    }
+
 } 

@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="keywords" content="">
     <meta name="author" content="">
-    <title>{{ $title or 'Leave Management' }}</title>
+    <title>{{ $title or 'Test Application' }}</title>
 
     <!-- BOOTSTRAP CSS (REQUIRED ALL PAGE)-->
     {{ HTML::style('assets/css/bootstrap.min.css') }}
@@ -43,7 +43,7 @@ BEGIN PAGE
 -->
 <div class="wrapper">
 
-    <nav class="navbar square navbar-info" role="navigation">
+    <nav class="navbar square navbar-dark" role="navigation">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -53,13 +53,17 @@ BEGIN PAGE
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/">Leave Management Application</a>
+                <a class="navbar-brand" href="/">Test Application</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
                 <ul class="nav navbar-nav">
                     <li class="active">{{ link_to_route('home','Home') }}</li>
+                    @if ( Auth::check() )
+                        <li>{{ link_to_route('create_user_page','Add New User') }}</li>
+                    @else
+                    @endif
                 </ul>
                 @if ( Auth::check() )
                 <ul class="nav navbar-nav navbar-right">

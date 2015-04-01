@@ -1,9 +1,9 @@
 @extends('layout')
 
 @section('content')
-<h1 class="text-center text-info">Welcome</h1>
+<h1 class="text-center text-success">Welcome</h1>
 
-<div class="panel with-nav-tabs panel-info">
+<div class="panel with-nav-tabs panel-success">
     <div class="panel-heading">
         <ul class="nav nav-tabs nav-justified">
             <li class="active">
@@ -51,7 +51,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        {{ Form::submit('Sign Up', ['class' => 'btn btn-lg btn-primary btn-block', 'ng-disabled' => 'registrationForm.$invalid']) }}
+                                        {{ Form::submit('Sign Up', ['class' => 'btn btn-lg btn-success btn-block', 'ng-disabled' => 'registrationForm.$invalid']) }}
                                     </div>
 
                                 </div>
@@ -81,7 +81,7 @@
 
                             <!-- Sign In Input -->
                             <div class="form-group">
-                                {{ Form::submit('Sign In', ['class' => 'btn btn-lg btn-primary btn-block']) }}
+                                {{ Form::submit('Sign In', ['class' => 'btn btn-lg btn-success btn-block']) }}
                             </div>
                         </div>
                     </div>

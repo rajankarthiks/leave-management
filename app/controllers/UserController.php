@@ -52,9 +52,9 @@ class UserController extends BaseController {
 
         $user = $this->execute(RegisterUserCommand::class);
 
-        Auth::login($user);
+       // Auth::login($user);
 
-        Flash::success('You Have been Successfully Registered');
+        Flash::success('You Have been Successfully Registered. Please Wait till your account is activated.');
 
         return Redirect::home();
     }
@@ -65,7 +65,10 @@ class UserController extends BaseController {
 
         $this->signInForm->validate($input);
 
-        if ( ! Auth::attempt($input))
+        $email = Input::get('email');
+        $password = Input::get('password');
+
+        if ( ! Auth::attempt(['email'=>$email,'password'=>$password,'status'=>1]))
         {
             Flash::error('We were unable to sign you in. Please check your credentials and try again!');
 
@@ -97,6 +100,13 @@ class UserController extends BaseController {
 
         return View::make('users.dashboard')
                     ->with('leaves',$leaves);
+    }
+
+    public function assignRole ()
+    {
+        $id = Auth::user()->id;
+
+        User::find($id)->assignRole('1');
     }
 
 }

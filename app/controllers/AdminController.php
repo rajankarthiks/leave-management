@@ -1,15 +1,32 @@
 <?php
 
-use Acme\Leaves\LeaveRepository;
+use Acme\Users\UserRepository;
+use Acme\Forms\RegistrationForm;
+use Acme\Registration\RegisterUserCommand;
+use Acme\Forms\EditUserForm;
 
 class AdminController extends \BaseController {
 
-    protected $leaveRepo;
+    protected $repo;
+	/**
+	 * @var RegistrationForm
+	 */
+	private $registrationForm;
+	/**
+	 * @var EditUserForm
+	 */
+	private $editUserForm;
 
-    function __construct(LeaveRepository $leaveRepo)
+	/**
+	 * @var RegisterUserCommand
+	 */
+
+	function __construct(UserRepository $repo,RegistrationForm $registrationForm,EditUserForm $editUserForm)
     {
-        $this->leaveRepo = $leaveRepo;
-    }
+        $this->repo = $repo;
+		$this->registrationForm = $registrationForm;
+		$this->editUserForm = $editUserForm;
+	}
 
     /**
 	 * Display a listing of the resource.
@@ -19,10 +36,22 @@ class AdminController extends \BaseController {
 	 */
 	public function index()
 	{
-        $leaves = $this->leaveRepo->getAll();
+        $users = $this->repo->getAll();
 
 		return View::make('Admins.index')
-                     ->with('leaves',$leaves);
+                     ->with('users',$users);
+	}
+
+	public function createUserPage()
+	{
+		return View::make('Admins.createUser');
+	}
+
+	public function editUserPage($id)
+	{
+		$user = USer::find($id);
+
+		return View::make('Admins.editUser')->with('user',$user);
 	}
 
 	/**
@@ -31,10 +60,46 @@ class AdminController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function create()
+	public function createUser()
 	{
-		//
+		try {
+			$this->registrationForm->validate(Input::all());
+		}
+		catch (\Laracasts\Validation\FormValidationException $exception) {
+			return Redirect::back()->withInput()->withErrors($exception->getErrors());
+		}
+
+		$this->execute(RegisterUserCommand::class);
+
+		Flash::success('USer has been Successfully created.');
+
+		return Redirect::home();
+
 	}
+
+	public function editUser($id)
+	{
+		try {
+			$this->editUserForm->validate(Input::all());
+		}
+		catch (\Laracasts\Validation\FormValidationException $exception) {
+			return Redirect::back()->withInput()->withErrors($exception->getErrors());
+		}
+
+		$user = User::find($id);
+
+		$user->username = Input::get('username');
+		$user->email = Input::get('email');
+		$user->status = Input::get('status');
+
+		$user->save();
+
+		Flash::success('User has been Successfully edited.');
+
+		return Redirect::home();
+
+	}
+
 
 	/**
 	 * Store a newly created resource in storage.
@@ -93,6 +158,15 @@ class AdminController extends \BaseController {
 	public function destroy($id)
 	{
 		//
+	}
+
+	public function deleteUser($id)
+	{
+		User::destroy($id);
+
+		Flash::success('The User has been deleted.');
+
+		return Redirect::back();
 	}
 
 }
